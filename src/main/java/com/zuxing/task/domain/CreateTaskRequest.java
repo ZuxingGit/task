@@ -1,7 +1,7 @@
 package com.zuxing.task.domain;
 
-import java.time.LocalDate;
 import com.zuxing.task.domain.entity.TaskPriority;
+import java.time.LocalDate;
 
 public record CreateTaskRequest(
                 String title,
