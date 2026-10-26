@@ -1,4 +1,4 @@
-package com.zuxing.task.mapper;
+package com.zuxing.task.mapper.impl;
 
 import org.springframework.stereotype.Component;
 
@@ -8,6 +8,7 @@ import com.zuxing.task.domain.dto.CreateTaskRequestDto;
 import com.zuxing.task.domain.dto.TaskDto;
 import com.zuxing.task.domain.dto.UpdateTaskRequestDto;
 import com.zuxing.task.domain.entity.Task;
+import com.zuxing.task.mapper.TaskMapper;
 
 @Component
 public class TaskMapperImpl implements TaskMapper {
