@@ -1,15 +1,25 @@
 package com.zuxing.task.controller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+import java.util.List;
+import java.util.UUID;
+
+import org.hibernate.sql.Update;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.zuxing.task.domain.CreateTaskRequest;
+import com.zuxing.task.domain.UpdateTaskRequest;
 import com.zuxing.task.domain.dto.CreateTaskRequestDto;
 import com.zuxing.task.domain.dto.TaskDto;
+import com.zuxing.task.domain.dto.UpdateTaskRequestDto;
 import com.zuxing.task.domain.entity.Task;
 import com.zuxing.task.mapper.TaskMapper;
 import com.zuxing.task.service.TaskService;
@@ -34,5 +44,24 @@ public class TaskController {
         Task task = taskService.createTask(createTaskRequest);
         TaskDto createdTaskDto = taskMapper.toDto(task);
         return new ResponseEntity<>(createdTaskDto, HttpStatus.CREATED);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<TaskDto>> listTasks() {
+        List<Task> tasks = taskService.listTasks();
+        List<TaskDto> taskDtos = tasks.stream()
+                .map(taskMapper::toDto)
+                .toList();
+        return ResponseEntity.ok(taskDtos);
+    }
+
+    @PutMapping(path = "/{taskId}")
+    public ResponseEntity<TaskDto> updateTask(
+            @PathVariable UUID taskId,
+            @Valid @RequestBody UpdateTaskRequestDto updateTaskRequestDto) {
+        UpdateTaskRequest updateTaskRequest = taskMapper.fromDto(updateTaskRequestDto);
+        Task task = taskService.updateTask(taskId, updateTaskRequest);
+        TaskDto taskDto = taskMapper.toDto(task);
+        return ResponseEntity.ok(taskDto);
     }
 }

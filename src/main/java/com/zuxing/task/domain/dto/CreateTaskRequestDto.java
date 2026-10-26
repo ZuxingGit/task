@@ -20,7 +20,7 @@ public record CreateTaskRequestDto(
 
     private static final String ERROR_MESSAGE_DESCRIPTION_LENGTH = "Description must be at most 1000 characters";
 
-    private static final String ERROR_MESSAGE_DUE_DATE = "Due date must be in the present or future";
+    private static final String ERROR_MESSAGE_DUE_DATE = "Due date must be in the future";
 
     private static final String ERROR_MESSAGE_PRIORITY = "Task Priority must be provided";
 }
