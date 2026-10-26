@@ -1,7 +1,10 @@
 package com.zuxing.task.service.impl;
 
 import java.time.Instant;
+import java.util.List;
 
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.zuxing.task.domain.CreateTaskRequest;
@@ -34,6 +37,11 @@ public class TaskServiceImpl implements TaskService {
                 now);
 
         return taskRepository.save(task);
+    }
+
+    @Override
+    public List<Task> listTasks() {
+        return taskRepository.findAll(Sort.by(Direction.ASC, "created"));
     }
 
 }
